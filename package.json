@@ -1,0 +1,59 @@
+{
+  "name": "reactNativeSubsonic",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint .",
+    "start-web": "react-scripts start",
+    "build-web": "react-scripts build",
+    "test-web": "react-scripts test --env=jsdom",
+    "eject-web": "react-scripts eject"
+  },
+  "dependencies": {
+    "@inlet/react-pixi": "^5.0.4",
+    "gl-react": "^4.0.1",
+    "gl-react-dom": "^4.0.1",
+    "howler": "^2.2.0",
+    "idb": "^5.0.4",
+    "pixi.js": "^5.3.3",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-native": "0.63.2",
+    "react-native-svg": "^11.0.1",
+    "react-native-web": "^0.12.3",
+    "react-pixi-fiber": "^0.14.1",
+    "react-redux": "^7.2.1",
+    "react-scripts": "^3.4.3",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.5",
+    "@babel/runtime": "^7.11.2",
+    "@react-native-community/eslint-config": "^2.0.0",
+    "babel-jest": "^26.3.0",
+    "eslint": "^7.8.1",
+    "jest": "^26.4.2",
+    "metro-react-native-babel-preset": "^0.63.0",
+    "react-test-renderer": "16.13.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
