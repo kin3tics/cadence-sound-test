@@ -9,6 +9,8 @@ import NowPlaying from './NowPlaying';
 
 import { getNiceZoneName } from '../helpers/text';
 
+const trackBorder = require('../images/ui/box1s2.png');
+
 const trackListContainerProps = {
     height: 350,
     width: 614,
@@ -102,10 +104,10 @@ function getBaseTrackFromCurrentTrack(currentTrack) {
     return null;
 }
 
-function TracksContainer({ dispatch, trackData, trackZone, currentTrack }) {
+function TracksContainer({ dispatch, trackData, trackZone, currentTrack, playState }) {
     const [ activeModifier, setActiveModifier ] = useState(getModifierFromCurrentTrack(currentTrack));
     const [ activeTrack, setActiveTrack ] = useState(getBaseTrackFromCurrentTrack(currentTrack));
-    const [ isPlaying, setIsPlaying ] = useState(false);
+    const [ isPlaying, setIsPlaying ] = useState(playState === "play");
     useEffect(() => {
         if(activeTrack) {
             let trackKey = activeTrack;
@@ -182,7 +184,7 @@ function TracksContainer({ dispatch, trackData, trackZone, currentTrack }) {
                 leftWidth={17} topHeight={17} rightWidth={17} bottomHeight={17}
                 width={trackListContainerProps.width} height={trackListContainerProps.height}
                 x={trackListContainerProps.x} y={trackListContainerProps.y}
-                image={require('../images/ui/box1s2.png')}
+                image={trackBorder}
             />
             <Rectangle fill={0x222222}
                 width={86} height={16}
@@ -201,7 +203,7 @@ function TracksContainer({ dispatch, trackData, trackZone, currentTrack }) {
                 leftWidth={17} topHeight={17} rightWidth={17} bottomHeight={17}
                 width={modifierContainerProps.width} height={modifierContainerProps.height}
                 x={modifierContainerProps.x} y={modifierContainerProps.y}
-                image={require('../images/ui/box1s2.png')}
+                image={trackBorder}
             />
             <Rectangle fill={0x222222}
                 width={58} height={16}

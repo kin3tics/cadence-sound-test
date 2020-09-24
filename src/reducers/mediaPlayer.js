@@ -1,6 +1,3 @@
-
-const crossfadeDuration = 2500;
-
 function isEmpty(obj) {
     return Object.keys(obj).length === 0 && obj.constructor === Object
 }
@@ -48,6 +45,7 @@ const mediaPlayer = (
             return Object.assign({}, state, { 
                 sounds: sounds,
                 currentSoundZone: action.data.zone,
+                currentSound: null,
                 currentTime: 0,
                 playState: 'stop',
                 context: context

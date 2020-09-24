@@ -26,9 +26,9 @@ function Arrow({ x, y, label, onPress}) {
         <Container interactive={true} buttonMode={true} pointerdown={onPress}
             x={buttonX} y={buttonY}>
             <Text text={labelText} style={textStyleBackground}
-                anchor={0.5, 0.5} x={2} y={2} />
+                anchor={0.5} x={2} y={2} />
             <Text text={labelText} style={textStyle} anchor={0.5} />
-            <Sprite anchor={0.5, 0.5} y={56} source={require('../images/ui/arrowl2.png')} />
+            <Sprite anchor={0.5} y={56} source={require('../images/ui/arrowl2.png')} />
         </Container>
     )
 }

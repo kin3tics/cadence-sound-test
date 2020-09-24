@@ -38,7 +38,7 @@ const MainScreen = ({ mediaPlayer, dispatch, zone }) => {
         } else {
             setLoading(false);
         }
-    });
+    }, [mediaPlayer.sounds, mediaPlayer.currentSoundZone, zone, dispatch]);
     
     return (<Container>
         <Sprite image={require('../../images/bg.jpg')} scale={0.8} />
@@ -49,13 +49,13 @@ const MainScreen = ({ mediaPlayer, dispatch, zone }) => {
             <Text
                 style={loadingTextStyleBackground}
                 text={'Loading...'}
-                anchor={0.49, 0.49}
+                anchor={0.49}
                 y={(screenHeight / 2) + 2}
                 x={(screenWidth/2) + 2} />
             <Text
                 style={loadingTextStyle}
                 text={'Loading...'}
-                anchor={0.5, 0.5}
+                anchor={0.5}
                 y={(screenHeight / 2)}
                 x={(screenWidth/2)} />
         </Container>)
@@ -63,7 +63,8 @@ const MainScreen = ({ mediaPlayer, dispatch, zone }) => {
             trackZone={mediaPlayer.currentSoundZone} 
             tracks={mediaPlayer.sounds ? mediaPlayer.sounds : []} 
             trackData={ audioData[mediaPlayer.currentSoundZone] } 
-            currentTrack={mediaPlayer.currentSound} />
+            currentTrack={mediaPlayer.currentSound}
+            playState={mediaPlayer.playState} />
             <Arrow x={76} y={256} direction="left" label="Map"
                 onPress={() => {dispatch(setScreen("map"))}} />
             </Container>) }

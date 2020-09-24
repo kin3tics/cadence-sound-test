@@ -45,6 +45,6 @@ export function getNiceFullSongName(currentTrack) {
     let niceName = '';
     if(trackPieces[0]) niceName += getNiceZoneName(trackPieces[0]);
     if(trackPieces[1]) niceName += ` - ${capitalize(trackPieces[1])}`;
-    if(trackPieces[2]) niceName += ` (feat. ${getNiceModName})`;
+    if(trackPieces[2]) niceName += ` (feat. ${getNiceModName(trackPieces[2])})`;
     return niceName
 }

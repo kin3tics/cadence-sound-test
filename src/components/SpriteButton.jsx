@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Container, NineSlicePlane, Sprite } from '@inlet/react-pixi';
 import Rectangle from './Rectangle';
 
+const buttonSource = require('../images/ui/btn1.png');
+const hoverSource = require('../images/ui/btn-overlay.png');
+
 const defaultColor = 0x383838;
 const activeColor = 0xd9544c;
 const buttonDefaultProps = {
@@ -18,6 +21,7 @@ function SpriteButton({ x, y, height, width, active, source, onPress}) {
     let buttonX = x ? x : buttonDefaultProps.x;
     let buttonY = y ? y : buttonDefaultProps.y;
     let buttonFill = active ? activeColor : defaultColor;
+    
     return (
         <Container interactive={true} buttonMode={true} pointerdown={onPress}
             x={buttonX} y={buttonY}
@@ -28,13 +32,13 @@ function SpriteButton({ x, y, height, width, active, source, onPress}) {
             <NineSlicePlane
                 leftWidth={17} topHeight={17} rightWidth={17} bottomHeight={17}
                 width={buttonWidth} height={buttonHeight}
-                image={require('../images/ui/btn1.png')}
+                image={buttonSource}
             />
             { hover && <NineSlicePlane
                 leftWidth={19} topHeight={19} rightWidth={19} bottomHeight={19}
                 width={buttonWidth + 4} height={buttonHeight + 4}
                 x={-2} y={-2} 
-                image={require('../images/ui/btn-overlay.png')}
+                image={hoverSource}
             /> }
             <Sprite image={source}
                 anchor={0.5}

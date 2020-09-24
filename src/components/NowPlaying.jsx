@@ -3,7 +3,9 @@ import { Container, Text, NineSlicePlane } from '@inlet/react-pixi'
 import { connect } from 'react-redux';
 import Rectangle from './Rectangle';
 
-import { getNiceFullSongName } from '../helpers/text'
+import { getNiceFullSongName } from '../helpers/text';
+
+const borderSource = require('../images/ui/box2s2.png');
 
 const nowPlayingDefaultProps = {
     height: 50,
@@ -39,28 +41,28 @@ function NowPlaying({ currentTrack, isPlaying, width, height, x, y }) {
 
     let textNodes = [];
     if(!trackTitle) {
-        textNodes.push(<Text
+        textNodes.push(<Text key="text1"
             style={textStyleBackground}
             text={"Select a track above to begin."}
             x={containerX + 26} y={containerY + 12} />)
-        textNodes.push(<Text
+        textNodes.push(<Text key="text2"
             style={trackTextStyle}
             text={"Select a track above to begin."}
             x={containerX + 24} y={containerY + 10} />);
     } else {
-        textNodes.push(<Text
+        textNodes.push(<Text key="text1"
             style={textStyleBackground}
             text={`Status: ${isPlaying ? 'Playing' : 'Paused'}`}
             x={containerX + 26} y={containerY + 12} />);
-        textNodes.push(<Text
+        textNodes.push(<Text key="text2"
             style={statusTextStyle}
             text={`Status: ${isPlaying ? 'Playing' : 'Paused'}`}
             x={containerX + 24} y={containerY + 10} />);
-        textNodes.push(<Text
+        textNodes.push(<Text key="text3"
             style={textStyleBackground}
             text={`Track: ${trackTitle}`}
             x={containerX + 26} y={containerY + 34} />);
-        textNodes.push(<Text
+        textNodes.push(<Text key="text4"
             style={trackTextStyle}
             text={`Track: ${trackTitle}`}
             x={containerX + 24} y={containerY + 32} />);
@@ -75,7 +77,7 @@ function NowPlaying({ currentTrack, isPlaying, width, height, x, y }) {
                 leftWidth={17} topHeight={17} rightWidth={17} bottomHeight={17}
                 width={containerWidth} height={containerHeight}
                 x={containerX} y={containerY}
-                image={require('../images/ui/box2s2.png')}
+                image={borderSource}
             />
             {textNodes}
         </Container>

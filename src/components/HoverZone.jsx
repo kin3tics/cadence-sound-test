@@ -1,25 +1,16 @@
 import React, { useState } from 'react';
-import { Container, NineSlicePlane, Text } from '@inlet/react-pixi';
+import { Container, NineSlicePlane } from '@inlet/react-pixi';
 import Rectangle from './Rectangle';
 
+const hoverSrc = require('../images/ui/btn-overlay.png');
+
 const defaultColor = 0x383838;
-const activeColor = 0x558be4;
 const buttonDefaultProps = {
     x: 0,
     y: 0,
     height: 50,
     width: 150
 }
-const textStyle = {
-    fontFamily: 'PixelOperator',
-    fontSize: 28,
-    fill: "#ffffff"
-};
-const textStyleBackground = {
-    fontFamily: 'PixelOperator',
-    fontSize: 28,
-    fill: "#222222"
-};
 
 function HoverZone({ x, y, height, width, onHover, offHover, onPress}) {
     const [ hover, setHover ] = useState(false);
@@ -28,7 +19,6 @@ function HoverZone({ x, y, height, width, onHover, offHover, onPress}) {
     let zoneX = x ? x : buttonDefaultProps.x;
     let zoneY = y ? y : buttonDefaultProps.y;
     let buttonFill = defaultColor;
-    let hoverSrc = require('../images/ui/btn-overlay.png');
     return (
         <Container interactive={true} buttonMode={true} pointerdown={onPress}
             pointerover={() => {setHover(true); if(typeof onHover === "function") { onHover(); }}} 

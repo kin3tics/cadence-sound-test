@@ -9,6 +9,9 @@ import { getNiceZoneName } from '../../helpers/text';
 
 import { hoverHeight, hoverWidth, hoverZones } from './hover'
 
+const borderSource = require('../../images/ui/box1s2.png');
+const border2Source = require('../../images/ui/box2s2.png');
+
 const screenHeight = 576;
 const screenWidth = 1024;
 
@@ -102,7 +105,7 @@ const MapScreen = ({ dispatch }) => {
             leftWidth={17} topHeight={17} rightWidth={17} bottomHeight={17}
             width={mapContainerProps.width} height={mapContainerProps.height}
             x={mapContainerProps.x} y={mapContainerProps.y}
-            image={require('../../images/ui/box1s2.png')}
+            image={borderSource}
         />
         <Rectangle fill={0x222222}
             width={44} height={16}
@@ -124,7 +127,7 @@ const MapScreen = ({ dispatch }) => {
             leftWidth={17} topHeight={17} rightWidth={17} bottomHeight={17}
             width={textContainer.width} height={textContainer.height}
             x={textContainer.x} y={textContainer.y}
-            image={require('../../images/ui/box2s2.png')}
+            image={border2Source}
         />
         <Text
             style={zoneTextStyleBackground}

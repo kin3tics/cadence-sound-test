@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Container, NineSlicePlane, Text } from '@inlet/react-pixi';
 import Rectangle from './Rectangle';
 
+const buttonSource = require('../images/ui/btn1.png');
+const hoverSrc = require('../images/ui/btn-overlay.png');
+
 const defaultColor = 0x383838;
 const activeColor = 0x558be4;
 const buttonDefaultProps = {
@@ -29,7 +32,7 @@ function TextButton({ x, y, height, width, active, label, onPress}) {
     let buttonY = y ? y : buttonDefaultProps.y;
     let buttonFill = active ? activeColor : defaultColor
     let labelText = label ? label : 'TEXT GOES HERE';
-    let hoverSrc = require('../images/ui/btn-overlay.png');
+    
     return (
         <Container interactive={true} buttonMode={true} pointerdown={onPress}
             pointerover={() => setHover(true)} pointerout={() => setHover(false)}>
@@ -40,7 +43,7 @@ function TextButton({ x, y, height, width, active, label, onPress}) {
                 leftWidth={17} topHeight={17} rightWidth={17} bottomHeight={17}
                 width={buttonWidth} height={buttonHeight}
                 x={buttonX} y={buttonY} 
-                image={require('../images/ui/btn1.png')}
+                image={buttonSource}
             />
             { hover && <NineSlicePlane
                 leftWidth={19} topHeight={19} rightWidth={19} bottomHeight={19}

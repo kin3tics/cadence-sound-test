@@ -6,6 +6,8 @@ import TextButton from '../../components/TextButton';
 
 import { setScreen } from '../../actions/ui-actions';
 
+const borderSource  = require('../../images/ui/box1s2.png');
+
 const screenHeight = 576;
 const screenWidth = 1024;
 
@@ -60,7 +62,7 @@ const SplashScreen = ({ dispatch }) => {
             leftWidth={17} topHeight={17} rightWidth={17} bottomHeight={17}
             width={splashScreenProps.width} height={splashScreenProps.height}
             x={splashScreenProps.x} y={splashScreenProps.y}
-            image={require('../../images/ui/box1s2.png')}
+            image={borderSource}
         />
         <Rectangle fill={0x222222}
             width={58} height={16}
