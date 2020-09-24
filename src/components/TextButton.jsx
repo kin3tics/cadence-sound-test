@@ -29,6 +29,7 @@ function TextButton({ x, y, height, width, active, label, onPress}) {
     let buttonY = y ? y : buttonDefaultProps.y;
     let buttonFill = active ? activeColor : defaultColor
     let labelText = label ? label : 'TEXT GOES HERE';
+    let hoverSrc = require('../images/ui/btn-overlay.png');
     return (
         <Container interactive={true} buttonMode={true} pointerdown={onPress}
             pointerover={() => setHover(true)} pointerout={() => setHover(false)}>
@@ -45,7 +46,7 @@ function TextButton({ x, y, height, width, active, label, onPress}) {
                 leftWidth={19} topHeight={19} rightWidth={19} bottomHeight={19}
                 width={buttonWidth + 4} height={buttonHeight + 4}
                 x={buttonX - 2} y={buttonY - 2} 
-                image={require('../images/ui/btn-overlay.png')}
+                image={hoverSrc}
             /> }
             <Text text={labelText} style={textStyleBackground}
                 x={buttonX + 22} y={buttonY + (buttonHeight / 4) + 2} />

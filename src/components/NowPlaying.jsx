@@ -3,6 +3,8 @@ import { Container, Text, NineSlicePlane } from '@inlet/react-pixi'
 import { connect } from 'react-redux';
 import Rectangle from './Rectangle';
 
+import { getNiceFullSongName } from '../helpers/text'
+
 const nowPlayingDefaultProps = {
     height: 50,
     width: 614,
@@ -27,34 +29,13 @@ const textStyleBackground = {
     fill: '#222222'
 }
 
-const capitalize = (s) => {
-    if (typeof s !== 'string') return '';
-    return s.charAt(0).toUpperCase() + s.slice(1);
-}
-
-function convertModifier(mod) {
-    if(mod === 'Shop') return 'Shopkeeper';
-    return mod;
-}
-
 function NowPlaying({ currentTrack, isPlaying, width, height, x, y }) {
     let containerWidth = width ? width : nowPlayingDefaultProps.width;
     let containerHeight = height ? height : nowPlayingDefaultProps.height;
     let containerX = x ? x : nowPlayingDefaultProps.x;
     let containerY = y ? y : nowPlayingDefaultProps.y;
 
-    let splitTrack = currentTrack ? currentTrack.split('_') : [];
-    let trackTitle = null
-    for (var i = 0; i < splitTrack.length; i++) {
-        let currentSlice = capitalize(splitTrack[i]);
-        if(i === 0) trackTitle = currentSlice;
-        else if (i === 1) trackTitle += ` - ${currentSlice}`;
-        else if (i >= 2) {
-            if(i === 2) trackTitle += ` (feat. ${convertModifier(currentSlice)}`;
-            else trackTitle += `, ${convertModifier(currentSlice)}`;
-            if(i === splitTrack.length - 1) trackTitle += ')';
-        }
-    }
+    let trackTitle = getNiceFullSongName(currentTrack);
 
     let textNodes = [];
     if(!trackTitle) {

@@ -31,21 +31,19 @@ const mediaPlayer = (
     }, 
     action ) => {
     let s = null;
+    let currentSoundIndex = state.sounds ? state.sounds.findIndex(s => s.name === state.currentSound) : -1;
     switch (action.type) {
         case('LOAD_SONGS'): 
-            //let context = new(window.AudioContext || window.webkitAudioContext) // Create an audio context
-            //let timingObject = new TimingObject(new TimingProvider('0123456789abcdefghij'))
-            if(state.sounds && !isEmpty(state.sounds)) {
-                for(var soundName in state.sounds) {
-                    //if(state.sounds[soundName]) state.sounds[soundName].unload();
-                }
-            }
+            if(state.currentSoundZone === action.data.zone) return state;
             let context = state.context ? state.context : new (window.AudioContext || window.webkitAudioContext);
-            // let sounds = {};
+            if(state.sounds && !isEmpty(state.sounds)) {
+                setTimeout(() => { state.context.close(); }, 2000);
+                context = new (window.AudioContext || window.webkitAudioContext);
+            }
+            
             let sounds = Object.keys(action.data.sounds).map(key => createSource(context, key, action.data.sounds[key]));
             sounds.forEach(s => {
                 s.gainNode.gain.value = 0;
-                //s.source.stop(0);
             })
             return Object.assign({}, state, { 
                 sounds: sounds,
@@ -53,7 +51,6 @@ const mediaPlayer = (
                 currentTime: 0,
                 playState: 'stop',
                 context: context
-                //timer: timingObject
             });
         case('PLAY_SONG'):
             //If trying to 'play' current sound don't do anything
@@ -68,7 +65,6 @@ const mediaPlayer = (
                 playState: 'play'
             });
             let playIndex = s.sounds.findIndex(s => s.name === action.data);
-            console.log(playIndex);
             s.sounds.forEach((sound, i) => {
                 if(i !== playIndex) {
                     //sound.gainNode.gain.value = 0;
@@ -89,6 +85,20 @@ const mediaPlayer = (
                 playState: 'stop'
             });
         case('SEEK_SONG'):
+            return state;
+        case('SET_SCREEN'): 
+            if(!state.sounds || state.playState !== 'play') return state;
+
+            //let currentSoundIndex = state.sounds.findIndex(s => s.name === state.currentSound);
+            if(action.data === 'map') {
+                state.sounds[currentSoundIndex].gainNode.gain.linearRampToValueAtTime(0.5, state.context.currentTime + 1);
+            } else {
+                if (state.currentSoundZone !== action.data) {
+                    state.sounds[currentSoundIndex].gainNode.gain.linearRampToValueAtTime(0, state.context.currentTime + 1);
+                } else {
+                    state.sounds[currentSoundIndex].gainNode.gain.linearRampToValueAtTime(1, state.context.currentTime + 1);
+                }
+            }
             return state;
         default:
             return state;

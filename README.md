@@ -1,6 +1,7 @@
 Cadence of Hyrule - Sound Test
 
-This is a fan project not associated in any way with Nintendo
+This is a fan project not associated in any way with Nintendo.
+
 Written w/ react and pixi.js
 
 Takes multiple audio streams and increase/decrease gain on a stream-by-stream basis.

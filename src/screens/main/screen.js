@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Container, Sprite, Text } from '@inlet/react-pixi'
 import { loadAudio } from '../../actions/mediaPlayer-actions';
+import { setScreen } from '../../actions/ui-actions';
 import Rectangle from '../../components/Rectangle';
+import Arrow from '../../components/Arrow';
 
 import TracksContainer from '../../components/TracksContainer.jsx';
 
@@ -28,9 +30,15 @@ const mapStateToProps = state => ({
     mediaPlayer: state.mediaPlayer
 })
 
-const MainScreen = ({ mediaPlayer, dispatch }) => {
+const MainScreen = ({ mediaPlayer, dispatch, zone }) => {
     const [loading, setLoading] = useState(true);
-    useEffect(() => { if(!mediaPlayer.sounds) dispatch(loadAudio('overworld', () => {setLoading(false);}))});
+    useEffect(() => {
+        if(!mediaPlayer.sounds || zone !== mediaPlayer.currentSoundZone) {
+            dispatch(loadAudio(zone, () => {setLoading(false);}));
+        } else {
+            setLoading(false);
+        }
+    });
     
     return (<Container>
         <Sprite image={require('../../images/bg.jpg')} scale={0.8} />
@@ -51,11 +59,14 @@ const MainScreen = ({ mediaPlayer, dispatch }) => {
                 y={(screenHeight / 2)}
                 x={(screenWidth/2)} />
         </Container>)
-            : (<TracksContainer 
+            : (<Container><TracksContainer 
             trackZone={mediaPlayer.currentSoundZone} 
             tracks={mediaPlayer.sounds ? mediaPlayer.sounds : []} 
             trackData={ audioData[mediaPlayer.currentSoundZone] } 
-            currentTrack={mediaPlayer.currentSound} />) }
+            currentTrack={mediaPlayer.currentSound} />
+            <Arrow x={76} y={256} direction="left" label="Map"
+                onPress={() => {dispatch(setScreen("map"))}} />
+            </Container>) }
     </Container>)
 }
 

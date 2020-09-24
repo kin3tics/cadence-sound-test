@@ -7,32 +7,7 @@ import TextButton from './TextButton';
 import SpriteButton from './SpriteButton';
 import NowPlaying from './NowPlaying';
 
-import audioData from '../data/audio';
-
-import styles from '../styles/global';
-
-const mapStateToProps = state => ({
-    mediaPlayer: state.mediaPlayer
-})
-
-// const Area = connect()(({zoneTitle, areaTitle, areaData, dispatch}) => {
-//     return(<View>
-//         <Text>{areaTitle}</Text>
-//         <View>
-//             <Button title={areaTitle} onPress={() => dispatch(playSound(`${zoneTitle}_${areaTitle}`))} />
-//             { areaData.options.map(ad => <Button title={`${areaTitle} ${ad}`} onPress={() => dispatch(playSound(`${zoneTitle}_${areaTitle}_${ad}`))} />)}
-//         </View>
-//     </View>)
-// })
-
-// const Zone = ({zoneTitle, zoneData}) => {
-//     let areas = [];
-//     for(var area in zoneData) {
-//         areas.push(<Area zoneTitle={zoneTitle} areaTitle={area} areaData={zoneData[area]} />);
-//     }
-//     return (<View><Text>{zoneTitle}</Text>{areas}</View>)
-
-// }
+import { getNiceZoneName } from '../helpers/text';
 
 const trackListContainerProps = {
     height: 350,
@@ -113,9 +88,23 @@ const capitalize = (s) => {
     return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
+function getModifierFromCurrentTrack(currentTrack) {
+    if(!currentTrack) return null;
+    let trackPieces = currentTrack.split('_');
+    if(trackPieces[2]) return trackPieces[2];
+    return null;
+}
+
+function getBaseTrackFromCurrentTrack(currentTrack) {
+    if(!currentTrack) return null;
+    let trackPieces = currentTrack.split('_');
+    if(trackPieces[0] && trackPieces[1]) return `${trackPieces[0]}_${trackPieces[1]}`;
+    return null;
+}
+
 function TracksContainer({ dispatch, trackData, trackZone, currentTrack }) {
-    const [ activeModifier, setActiveModifier ] = useState(null);
-    const [ activeTrack, setActiveTrack ] = useState(null);
+    const [ activeModifier, setActiveModifier ] = useState(getModifierFromCurrentTrack(currentTrack));
+    const [ activeTrack, setActiveTrack ] = useState(getBaseTrackFromCurrentTrack(currentTrack));
     const [ isPlaying, setIsPlaying ] = useState(false);
     useEffect(() => {
         if(activeTrack) {
@@ -126,10 +115,8 @@ function TracksContainer({ dispatch, trackData, trackZone, currentTrack }) {
                 setIsPlaying(true);
             }
         }
-    }, [activeTrack, activeModifier]);
+    }, [activeTrack, currentTrack, activeModifier, dispatch]);
 
-    // useEffect(() => { if(!mediaPlayer.sounds) dispatch(loadAudio('overworld'))});
-    // console.log(mediaPlayer)
     let trackButtons = [];
     let modifierButtons = [];
     let modifiers = [];
@@ -144,36 +131,48 @@ function TracksContainer({ dispatch, trackData, trackZone, currentTrack }) {
             }
             let offsetY = trackListContainerProps.y + 50 + (i * 75)
             let trackKey = `${trackZone}_${data}`;
-            trackButtons.push(<TextButton
+            let trackActive = activeTrack && activeTrack.indexOf(trackKey) > -1;
+            trackButtons.push(<TextButton key={`track-${i}`}
                 height={trackProps.height} width={trackProps.width} label={capitalize(data)}
                 x={trackListContainerProps.x + 75  } y={offsetY}
-                active={activeTrack === trackKey}
-                onPress={() => { console.log(`tapped! ${trackKey}`);  setActiveTrack(trackKey); }} />);
+                active={trackActive}
+                onPress={() => { setActiveTrack(trackKey); }} />);
         });
     }
     modifiers.forEach((mod, i) => {
         let offsetY = modifierContainerProps.y + 50 + (i * 75);
         let modActive = activeModifier === mod;
-        modifierButtons.push(<SpriteButton
+        let modSprite = null;
+        if(mod === 'shop') {
+            modSprite = modActive ? require('../images/mods/shop_sing.png') : require('../images/mods/shop_default.png');
+        } else if (mod === 'glockenspiel') {
+            modSprite = require('../images/mods/glockenspiel_default.png');
+        } else if (mod === 'bass') {
+            modSprite = require('../images/mods/bass_default.png');
+        } else if (mod === 'maracas') {
+            modSprite = require('../images/mods/maracas_default.png');
+        } else if (mod === 'oboe') {
+            modSprite = require('../images/mods/oboe_default.png');
+        }
+        modifierButtons.push(<SpriteButton key={`mod-${i}`}
             height={modifierButtonProps.height} width={modifierButtonProps.width}
             x={modifierContainerProps.x + 32  } y={offsetY}
             active={modActive}
-            source={modActive ? require('../images/mods/shop_sing.png') : require('../images/mods/shop_default.png')}
-            sourceX={4} sourceY={8}
-            onPress={() => { console.log(`tapped! ${mod}`); setActiveModifier(modActive ? null : mod); }} />);
+            source={modSprite}
+            onPress={() => { setActiveModifier(modActive ? null : mod); }} />);
     })
     return (
         <Container>
             <Text
                 style={zoneTextStyleBackground}
-                text={trackZone ? trackZone.toUpperCase() : ''}
-                anchor={0.49, 0.49}
+                text={getNiceZoneName(trackZone)}
+                anchor={0.49}
                 y={(trackListContainerProps.y / 2) + 2}
                 x={(1024/2) + 2} />
             <Text
                 style={zoneTextStyle}
-                text={trackZone ? trackZone.toUpperCase() : ''}
-                anchor={0.5, 0.5}
+                text={getNiceZoneName(trackZone)}
+                anchor={0.5}
                 y={trackListContainerProps.y / 2}
                 x={1024/2} />
             <Rectangle fill={0x222222} opacity={0.7}

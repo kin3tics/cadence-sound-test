@@ -11,35 +11,34 @@ const buttonDefaultProps = {
     width: 150
 }
 
-function SpriteButton({ x, y, height, width, active, label, source, sourceX, sourceY, onPress}) {
+function SpriteButton({ x, y, height, width, active, source, onPress}) {
     const [ hover, setHover ] = useState(false); 
     let buttonHeight = height ? height : buttonDefaultProps.height;
     let buttonWidth = width ? width : buttonDefaultProps.width;
     let buttonX = x ? x : buttonDefaultProps.x;
     let buttonY = y ? y : buttonDefaultProps.y;
     let buttonFill = active ? activeColor : defaultColor;
-    let sourceOffsetX = sourceX ? sourceX : 0;
-    let sourceOffsetY = sourceY ? sourceY : 0;
     return (
         <Container interactive={true} buttonMode={true} pointerdown={onPress}
+            x={buttonX} y={buttonY}
             pointerover={() => setHover(true)} pointerout={() => setHover(false)}>
             <Rectangle fill={buttonFill}
                 width={buttonWidth - 4} height={buttonHeight - 4}
-                x={buttonX + 2 } y={buttonY + 2} />
+                x={2} y={2} />
             <NineSlicePlane
                 leftWidth={17} topHeight={17} rightWidth={17} bottomHeight={17}
                 width={buttonWidth} height={buttonHeight}
-                x={buttonX} y={buttonY} 
                 image={require('../images/ui/btn1.png')}
             />
             { hover && <NineSlicePlane
                 leftWidth={19} topHeight={19} rightWidth={19} bottomHeight={19}
                 width={buttonWidth + 4} height={buttonHeight + 4}
-                x={buttonX - 2} y={buttonY - 2} 
+                x={-2} y={-2} 
                 image={require('../images/ui/btn-overlay.png')}
             /> }
             <Sprite image={source}
-                x={buttonX + sourceOffsetX} y={buttonY + sourceOffsetY} />
+                anchor={0.5}
+                x={(buttonWidth / 2)} y={(buttonHeight / 2)} />
         </Container>
     )
 }

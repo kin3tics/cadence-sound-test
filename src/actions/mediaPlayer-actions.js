@@ -15,7 +15,7 @@ export const SET_ART = 'SET_ART'
 const AudioContext = new (window.AudioContext || window.webkitAudioContext);
 
 export function loadAudio(map, cb) {
-    return(dispatch) => {
+    return(dispatch) => { 
         let audioMap = audioData[map];
         let audioFiles = [];
         if(audioMap) {
@@ -50,7 +50,6 @@ export function loadAudio(map, cb) {
                     //sounds[s] = new Sound(`/sounds/${s}.webm`, null, handleError); 
             });
             Promise.all(audioFilePromises).then(res => {
-                console.log(audioBuffers);
                 dispatch({ type: LOAD_SONGS, data: { sounds: audioBuffers, zone: map } });
                 if(typeof cb === 'function') cb();
             }).catch(err => {
