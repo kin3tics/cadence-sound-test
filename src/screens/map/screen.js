@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Container, Sprite, NineSlicePlane, Text } from '@inlet/react-pixi'
 import Rectangle from '../../components/Rectangle';
 import HoverZone from '../../components/HoverZone';
+import Arrow from '../../components/Arrow';
 
 import { setScreen } from '../../actions/ui-actions';
 import { getNiceZoneName } from '../../helpers/text';
@@ -68,7 +69,11 @@ const zoneTextStyleBackground = {
     fill: '#222222'
 }
 
-const MapScreen = ({ dispatch }) => {
+const mapStateToProps = state => ({
+    zone: state.mediaPlayer.currentSoundZone
+});
+
+const MapScreen = ({ dispatch, zone }) => {
     const [highlightedZone, setHighlightedZone] = useState('');
     let zones = hoverZones.map((hz, i) => {
         return (<HoverZone key={`hoverZone${i}`}
@@ -137,7 +142,9 @@ const MapScreen = ({ dispatch }) => {
             style={zoneTextStyle}
             text={getNiceZoneName(highlightedZone)}
             x={textContainer.x + 24} y={textContainer.y + 10} />
+        {zone && <Arrow x={948} y={256} direction="right" label="Tracks" 
+            onPress={() => {dispatch(setScreen(zone))}} />}
     </Container>)
 }
 
-export default connect()(MapScreen);
+export default connect(mapStateToProps)(MapScreen);
