@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Container, Sprite, Text } from '@inlet/react-pixi'
+import { Container, Text } from '@inlet/react-pixi'
 import { loadAudio } from '../../actions/mediaPlayer-actions';
 import { setScreen } from '../../actions/ui-actions';
 import Rectangle from '../../components/Rectangle';
+import Background from '../../components/Background';
 import Arrow from '../../components/Arrow';
 
 import TracksContainer from '../../components/TracksContainer.jsx';
@@ -41,7 +42,7 @@ const MainScreen = ({ mediaPlayer, dispatch, zone }) => {
     }, [mediaPlayer.sounds, mediaPlayer.currentSoundZone, zone, dispatch]);
     
     return (<Container>
-        <Sprite image={require('../../images/bg.jpg')} scale={0.8} />
+        <Background />
         <Rectangle fill={0x222222} opacity={0.5}
             width={screenWidth} height={screenHeight}
             x={0} y={0} />

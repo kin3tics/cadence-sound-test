@@ -72,6 +72,7 @@ const mediaPlayer = (
             });
 
             //s.sounds[playIndex].gainNode.gain.value = 1;
+            s.sounds[playIndex].gainNode.gain.value = 0.5;
             s.sounds[playIndex].gainNode.gain.linearRampToValueAtTime(1, state.context.currentTime + 1);
             if(state.playState !== 'play' && !isResuming) { s.sounds[playIndex].source.start(0); }
             return s;

@@ -4,6 +4,7 @@ import { Container, Sprite, NineSlicePlane, Text } from '@inlet/react-pixi'
 import Rectangle from '../../components/Rectangle';
 import HoverZone from '../../components/HoverZone';
 import Arrow from '../../components/Arrow';
+import Background from '../../components/Background';
 
 import { setScreen } from '../../actions/ui-actions';
 import { getNiceZoneName } from '../../helpers/text';
@@ -87,7 +88,7 @@ const MapScreen = ({ dispatch, zone }) => {
     })
 
     return (<Container>
-        <Sprite image={require('../../images/bg.jpg')} scale={0.8} />
+        <Background />
         <Rectangle fill={0x222222} opacity={0.5}
             width={screenWidth} height={screenHeight}
             x={0} y={0} />

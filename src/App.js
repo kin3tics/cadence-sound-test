@@ -8,6 +8,7 @@ import { store } from './configureStore'
 import { SplashScreen } from './screens/splash';
 import { MainScreen } from './screens/main';
 import { MapScreen } from './screens/map';
+import { TestScreen } from './screens/test';
 
 function roundToHalf(value) {
   var converted = parseFloat(value); // Make sure we have a number
@@ -32,6 +33,8 @@ const mapStateToProps = state => ({
 
 const Router = connect(mapStateToProps)(({ ui }) => {
   switch (ui.currentScreen) {
+    case 'test':
+      return <TestScreen />
     case 'map':
       return <MapScreen />
     case 'splash':

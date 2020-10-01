@@ -54,7 +54,8 @@ const SplashScreen = ({ dispatch }) => {
         <Sprite image={require('../../images/splash_07.png')} x={30} y={330}/>
         <Sprite image={require('../../images/splash_07.png')} x={670} y={330}/>
         <Sprite image={require('../../images/splash_08.png')} x={0} y={407} scale={1.6}/>
-        <Sprite image={require('../../images/logo.png')} x={(1024 / 2) - (276 * 1.5 / 2)} y={72} scale={1.5} />
+        <Sprite image={require('../../images/logo.png')} x={(1024 / 2)} y={172} scale={1.5} anchor={0.5} />
+        <Sprite image={require('../../images/soundtest.png')} x={(1024 / 2) - 24} y={362} anchor={0.5} />
         <Rectangle fill={0x222222} opacity={0.7}
                 width={splashScreenProps.width} height={splashScreenProps.height}
                 x={splashScreenProps.x} y={splashScreenProps.y} />
